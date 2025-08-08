@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="insertUser">
+        INSERT INTO USER
+        (
+            USER_ID,
+            USER_NAME,
+            USER_PWD,
+            AGE,
+            PHONE,
+            GENDER
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        )
+    </entry>
+    <entry key="selectAllUserList">
+        SELECT
+               USER_ID,
+               USER_NAME
+          FROM USER
+    </entry>
+    <entry key="selectOneUser">
+        SELECT
+               USER_ID,
+               USER_NAME,
+               USER_PWD,
+               AGE,
+               PHONE,
+               GENDER
+          FROM USER
+    </entry>
+</properties>
