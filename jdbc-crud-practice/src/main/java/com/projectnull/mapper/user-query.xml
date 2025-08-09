@@ -37,4 +37,64 @@
                GENDER
           FROM USER
     </entry>
+    <entry key="insertUser">
+        INSERT INTO USER
+        (
+            USER_ID,
+            USER_NAME,
+            USER_PWD,
+            AGE,
+            PHONE,
+            GENDER
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        )
+    </entry>
+    <entry key="updateUser">
+        UPDATE USER
+        (
+            USER_ID,
+            USER_NAME,
+            USER_PWD,
+            AGE,
+            PHONE,
+            GENDER
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        )
+    </entry>
+    <entry key="deleteUser">
+        DELETE FROM USER
+        (
+            USER_ID,
+            USER_NAME,
+            USER_PWD,
+            AGE,
+            PHONE,
+            GENDER
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        )
+    </entry>
 </properties>

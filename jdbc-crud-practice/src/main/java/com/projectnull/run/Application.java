@@ -17,9 +17,26 @@ public class Application {
 
         UserDAO registDAO = new UserDAO();
 
+        Scanner sc = new Scanner(System.in);
+
+        while(true){
+            System.out.println("===공연 예매 프로그램 회원 관리===");
+            System.out.println("1. 전체 회원 조회");
+            System.out.println("2. 새 회원 등록");
+            System.out.println("3. 회원 정보 조회");
+            System.out.println("4. 회원 정보 수정");
+            System.out.println("5. 회원 삭제");
+            System.out.print("번호 선택 : ");
+            int num = sc.nextInt();
+
+//            switch (num){
+//                case 1:
+//
+//            }
+        }
         /* 1. 새 회원 등록 */
 
-//        Scanner sc = new Scanner(System.in);
+
 //        System.out.print("등록할 회원의 아이디를 입력하세요 : ");
 //        int userId = sc.nextInt();
 //        System.out.print("등록할 회원의 이름을 입력하세요 : ");
@@ -53,6 +70,10 @@ public class Application {
         System.out.println("oneUser = " + oneUser);
 
         /* 4. 1번 회원 수정 */
+
+
+
+
         /* 5. 1번 회원 삭제 */
     }
 }
