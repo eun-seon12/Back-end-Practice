@@ -36,6 +36,7 @@
                PHONE,
                GENDER
           FROM USER
+         WHERE USER_ID = ?
     </entry>
     <entry key="insertUser">
         INSERT INTO USER
@@ -59,42 +60,14 @@
     </entry>
     <entry key="updateUser">
         UPDATE USER
-        (
-            USER_ID,
-            USER_NAME,
-            USER_PWD,
-            AGE,
-            PHONE,
-            GENDER
-        )
-        VALUES
-        (
-            ?,
-            ?,
-            ?,
-            ?,
-            ?,
-            ?
-        )
+           SET
+               USER_PWD = ?,
+               PHONE = ?
+         WHERE USER_ID = ?
     </entry>
     <entry key="deleteUser">
-        DELETE FROM USER
-        (
-            USER_ID,
-            USER_NAME,
-            USER_PWD,
-            AGE,
-            PHONE,
-            GENDER
-        )
-        VALUES
-        (
-            ?,
-            ?,
-            ?,
-            ?,
-            ?,
-            ?
-        )
+        DELETE
+          FROM USER
+         WHERE USER_ID = ?
     </entry>
 </properties>

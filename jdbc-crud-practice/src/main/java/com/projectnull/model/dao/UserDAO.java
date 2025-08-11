@@ -4,10 +4,7 @@ import com.projectnull.model.dto.UserDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 import static com.projectnull.common.JDBCTemplate.close;
@@ -24,13 +21,38 @@ public class UserDAO {
         }
     }
 
+    public int insertUser(Connection con, UserDTO user) {
 
-    public List<Map<Integer, String>> selectAllUser(Connection con) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String query = prop.getProperty("insertUser");
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, user.getUserId());
+            pstmt.setString(2, user.getUserName());
+            pstmt.setString(3, user.getUserPwd());
+            pstmt.setInt(4, user.getAge());
+            pstmt.setString(5, user.getPhone());
+            pstmt.setString(6, user.getGender());
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
+    }
+
+
+    public List<Map<String, String>> selectAllUser(Connection con) {
 
         Statement stmt = null;
         ResultSet rset = null;
 
-        List<Map<Integer, String>> userList = null;
+        List<Map<String, String>> userList = null;
 
         String query = prop.getProperty("selectAllUserList");
 
@@ -41,8 +63,10 @@ public class UserDAO {
             userList = new ArrayList<>();
 
             while (rset.next()){
-                Map<Integer, String> user = new HashMap<>();
-                user.put(rset.getInt("USER_ID"), rset.getString("USER_NAME"));
+                Map<String, String> user = new HashMap<>();
+                user.put("user Id ", String.valueOf(rset.getInt("USER_ID")));
+                user.put("user Name ", rset.getString("USER_NAME"));
+
 
                 userList.add(user);
             }
@@ -57,31 +81,86 @@ public class UserDAO {
 
     }
 
-    public int selectOneUser(Connection con) {
+    public UserDTO selectOneUser(Connection con, int userId) {
 
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rset = null;
+        UserDTO oneUser = null;
 
-        int oneUser = 0;
 
         String query = prop.getProperty("selectOneUser");
 
         try {
-            stmt = con.createStatement();
-            rset = stmt.executeQuery(query);
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userId);
 
-            if (rset.next()){
-                oneUser = rset.getInt("USER_ID");
+            rset = pstmt.executeQuery();
+
+            if (rset.next()) {
+                oneUser = new UserDTO();
+                oneUser.setUserId(rset.getInt("USER_ID"));
+                oneUser.setUserName(rset.getString("USER_NAME"));
+                oneUser.setUserPwd(rset.getString("USER_PWD"));
+                oneUser.setAge(rset.getInt("AGE"));
+                oneUser.setPhone(rset.getString("PHONE"));
+                oneUser.setGender(rset.getString("GENDER"));
             }
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             close(rset);
-            close(stmt);
+            close(pstmt);
         }
         return oneUser;
+    }
+
+    public int updateUser(Connection con, UserDTO user) {
+
+        PreparedStatement pstmt = null;
+
+        int result = 0;
+
+        String query = prop.getProperty("updateUser");
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, user.getUserPwd());
+            pstmt.setString(2, user.getPhone());
+            pstmt.setInt(3, user.getUserId());
+
+            result = pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
+    }
+
+
+    public int deleteUser(Connection con, int userId) {
+
+        PreparedStatement pstmt = null;
+
+        int result = 0;
+
+        String query = prop.getProperty("deleteUser");
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userId);
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+        return result;
     }
 
 }
