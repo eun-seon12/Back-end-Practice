@@ -29,12 +29,11 @@ public class UserDAO {
 
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, user.getUserId());
-            pstmt.setString(2, user.getUserName());
-            pstmt.setString(3, user.getUserPwd());
-            pstmt.setInt(4, user.getAge());
-            pstmt.setString(5, user.getPhone());
-            pstmt.setString(6, user.getGender());
+            pstmt.setString(1, user.getUserName());
+            pstmt.setString(2, user.getUserPwd());
+            pstmt.setInt(3, user.getAge());
+            pstmt.setString(4, user.getPhone());
+            pstmt.setString(5, user.getGender());
 
             result = pstmt.executeUpdate();
 
@@ -125,9 +124,11 @@ public class UserDAO {
 
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, user.getUserPwd());
-            pstmt.setString(2, user.getPhone());
-            pstmt.setInt(3, user.getUserId());
+            pstmt.setString(1, user.getUserName());
+            pstmt.setString(2, user.getUserPwd());
+            pstmt.setString(3, user.getPhone());
+            pstmt.setString(4,user.getGender());
+            pstmt.setInt(5, user.getUserId());
 
             result = pstmt.executeUpdate();
 

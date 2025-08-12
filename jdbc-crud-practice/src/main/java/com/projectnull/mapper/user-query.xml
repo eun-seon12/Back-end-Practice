@@ -4,7 +4,6 @@
     <entry key="insertUser">
         INSERT INTO USER
         (
-            USER_ID,
             USER_NAME,
             USER_PWD,
             AGE,
@@ -13,7 +12,6 @@
         )
         VALUES
         (
-            ?,
             ?,
             ?,
             ?,
@@ -38,31 +36,13 @@
           FROM USER
          WHERE USER_ID = ?
     </entry>
-    <entry key="insertUser">
-        INSERT INTO USER
-        (
-            USER_ID,
-            USER_NAME,
-            USER_PWD,
-            AGE,
-            PHONE,
-            GENDER
-        )
-        VALUES
-        (
-            ?,
-            ?,
-            ?,
-            ?,
-            ?,
-            ?
-        )
-    </entry>
     <entry key="updateUser">
         UPDATE USER
            SET
+               USER_NAME = ?,
                USER_PWD = ?,
-               PHONE = ?
+               PHONE = ?,
+               GENDER = ?
          WHERE USER_ID = ?
     </entry>
     <entry key="deleteUser">

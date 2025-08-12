@@ -26,13 +26,15 @@ public class Application {
         con = JDBCTemplate.getConnection();
 
         while(true){
-            System.out.println("=== 공연 예매 프로그램 회원 관리 ===");
+            System.out.println("====== 공연 예매 프로그램 회원 관리 ======");
+            System.out.println();
             System.out.println("1. 전체 회원 조회");
             System.out.println("2. 새 회원 등록");
-            System.out.println("3. 회원 정보 조회");
-            System.out.println("4. 회원 정보 수정");
+            System.out.println("3. 회원 정보 조회"); // 조회할 회원이 존재하는지 확인
+            System.out.println("4. 회원 정보 수정"); // 수정할 회원이 존재하는지 확인
             System.out.println("5. 회원 삭제");
             System.out.println("9. 프로그램 종료");
+            System.out.println();
             System.out.print("번호 선택 : ");
             int num = sc.nextInt();
 
@@ -43,10 +45,9 @@ public class Application {
                     for (Map<String, String> user : userList){
                         System.out.println("user = " + user);
                     }
+                    System.out.println();
                     break;
                 case 2:
-                    System.out.print("등록할 회원의 아이디를 입력하세요 : ");
-                    int userId = sc.nextInt();
                     System.out.print("등록할 회원의 이름을 입력하세요 : ");
                     sc.nextLine();
                     String userName = sc.nextLine();
@@ -60,7 +61,7 @@ public class Application {
                     System.out.print("등록할 회원의 성별을 입력하세요(F/M) : ");
                     String gender = sc.nextLine();
 
-                    UserDTO newUser = new UserDTO(userId, userName, userPwd, age, phone, gender);
+                    UserDTO newUser = new UserDTO(0, userName, userPwd, age, phone, gender);
 
                     int insertResult = userDAO.insertUser(con, newUser);
 
@@ -71,35 +72,76 @@ public class Application {
                     }
                     break;
                 case 3:
+//                    List<Map<String, String>> userList = userDAO.selectAllUser(con);
+//                    for (Map<String, String> user : userList){
+//                        System.out.println("user = " + user);
+//                    }
+//                    System.out.println();
+                    // 조회할 회원 아이디 입력 전에 현재 전체 회원 리스트를 보여주기
+
                     System.out.print("조회할 회원 아이디 : ");
                     int searchId = sc.nextInt();
+
                     UserDTO oneUser = userDAO.selectOneUser(con, searchId);
-                    System.out.println("oneUser = " + oneUser);
+                    System.out.println("-------------------------------------------------------------------------------------");
+                    System.out.println(oneUser);
+                    System.out.println("-------------------------------------------------------------------------------------");
+                    System.out.println();
                     break;
                 case 4:
                     System.out.print("수정할 회원 아이디: ");
                     int updateId = sc.nextInt();
                     sc.nextLine();
 
-                    System.out.print("새로운 비밀번호 : ");
-                    String updatePwd = sc.nextLine();
+                    UserDTO updateUser = userDAO.selectOneUser(con, updateId);
+//                    UserDTO updateUser = new UserDTO();
+//                    updateUser.setUserId(updateId);
 
-                    System.out.print("새로운 전화번호 : ");
-                    String updatePhone = sc.nextLine();
+                    while (true){
+                        System.out.println("====== 수정할 정보를 선택하세요 ======");
+                        System.out.println("1. 이름");
+                        System.out.println("2. 비밀번호");
+                        System.out.println("3. 전화번호");
+                        System.out.println("4. 성별");
+                        System.out.println("0. 수정 완료");
+                        System.out.print("번호 선택 : ");
+                        int choice = sc.nextInt();
+                        sc.nextLine();
 
-                    UserDTO updateUser = new UserDTO();
-                    updateUser.setUserId(updateId);
-                    updateUser.setUserPwd(updatePwd);
-                    updateUser.setPhone(updatePhone);
-
-                    int updateResult = userDAO.updateUser(con, updateUser);
-
-                    if (updateResult>0){
-                        System.out.println("수정 완료!");
-                    } else{
-                        System.out.println("수정 실패!");
+                        if (choice == 0) {
+                            int updateResult = userDAO.updateUser(con, updateUser);
+                            if (updateResult>0){
+                                System.out.println("수정 완료!");
+                            } else{
+                                System.out.println("수정 실패!");
+                            }
+                            break;
+                        }
+                        switch (choice){
+                            case 1:
+                                System.out.print("새로운 이름 : ");
+                                updateUser.setUserName(sc.nextLine());
+                                break;
+                            case 2:
+                                System.out.print("새로운 비밀번호 : ");
+                                updateUser.setUserPwd(sc.nextLine());
+                                break;
+                            case 3:
+                                System.out.print("새로운 전화번호 : ");
+                                updateUser.setPhone(sc.nextLine());
+                                break;
+                            case 4:
+                                System.out.print("새로운 성별 : ");
+                                updateUser.setGender(sc.nextLine());
+                                break;
+                            case 0:
+                                System.out.println("수정 취소");
+                                break;
+                            default:
+                                System.out.println("번호를 다시 선택하세요");
+                                break;
+                        }
                     }
-
 
                     break;
                 case 5:
@@ -110,7 +152,9 @@ public class Application {
                     if (deleteResult > 0) {
                         System.out.println("삭제 성공!");
                     } else {
-                        System.out.println("삭제 실패!");
+                        System.out.println();
+                        System.out.println("존재하지 않는 회원입니다.");
+                        System.out.println();
                     }
                     break;
                 case 9:
