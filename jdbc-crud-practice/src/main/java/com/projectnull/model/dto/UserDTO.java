@@ -2,7 +2,8 @@ package com.projectnull.model.dto;
 
 public class UserDTO {
 
-    private int userId;
+    private int userCode;
+    private String userId;
     private String userName;
     private String userPwd;
     private int age;
@@ -11,7 +12,8 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(int userId, String userName, String userPwd, int age, String phone, String gender) {
+    public UserDTO(int userCode, String userId, String userName, String userPwd, int age, String phone, String gender) {
+        this.userCode = userCode;
         this.userId = userId;
         this.userName = userName;
         this.userPwd = userPwd;
@@ -19,12 +21,15 @@ public class UserDTO {
         this.phone = phone;
         this.gender = gender;
     }
+    public int getUserCode(){return userCode;}
 
-    public int getUserId() {
+    public void setUserCode(int userCode){this.userCode=userCode;}
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -70,7 +75,8 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "아이디 = " + userId +
+        return " 회원 코드 = " + userCode +
+                ", 아이디 = '" + userId + '\'' +
                 ", 이름 = '" + userName + '\'' +
                 ", 비밀번호 = '" + userPwd + '\'' +
                 ", 나이 = " + age +

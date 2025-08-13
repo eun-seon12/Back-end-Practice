@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+    <entry key="selectAllUserList">
+        SELECT
+               USER_CODE,
+               USER_ID,
+               USER_NAME
+          FROM USER
+    </entry>
     <entry key="insertUser">
         INSERT INTO USER
         (
+            USER_ID,
             USER_NAME,
             USER_PWD,
             AGE,
@@ -16,17 +24,14 @@
             ?,
             ?,
             ?,
+            ?,
             ?
         )
     </entry>
-    <entry key="selectAllUserList">
-        SELECT
-               USER_ID,
-               USER_NAME
-          FROM USER
-    </entry>
+
     <entry key="selectOneUser">
         SELECT
+               USER_CODE,
                USER_ID,
                USER_NAME,
                USER_PWD,
@@ -34,7 +39,7 @@
                PHONE,
                GENDER
           FROM USER
-         WHERE USER_ID = ?
+         WHERE USER_CODE = ?
     </entry>
     <entry key="updateUser">
         UPDATE USER
@@ -43,11 +48,11 @@
                USER_PWD = ?,
                PHONE = ?,
                GENDER = ?
-         WHERE USER_ID = ?
+         WHERE USER_CODE = ?
     </entry>
     <entry key="deleteUser">
         DELETE
           FROM USER
-         WHERE USER_ID = ?
+         WHERE USER_CODE = ?
     </entry>
 </properties>

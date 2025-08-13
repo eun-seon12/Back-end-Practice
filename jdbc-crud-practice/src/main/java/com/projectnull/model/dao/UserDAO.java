@@ -29,11 +29,12 @@ public class UserDAO {
 
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, user.getUserName());
-            pstmt.setString(2, user.getUserPwd());
-            pstmt.setInt(3, user.getAge());
-            pstmt.setString(4, user.getPhone());
-            pstmt.setString(5, user.getGender());
+            pstmt.setString(1, user.getUserId());
+            pstmt.setString(2, user.getUserName());
+            pstmt.setString(3, user.getUserPwd());
+            pstmt.setInt(4, user.getAge());
+            pstmt.setString(5, user.getPhone());
+            pstmt.setString(6, user.getGender());
 
             result = pstmt.executeUpdate();
 
@@ -63,7 +64,8 @@ public class UserDAO {
 
             while (rset.next()){
                 Map<String, String> user = new HashMap<>();
-                user.put("user Id ", String.valueOf(rset.getInt("USER_ID")));
+                user.put("user Code ", String.valueOf(rset.getInt("USER_CODE")));
+                user.put("user Id ", rset.getString("USER_ID"));
                 user.put("user Name ", rset.getString("USER_NAME"));
 
 
@@ -77,10 +79,10 @@ public class UserDAO {
             close(stmt);
         }
         return userList;
-
     }
 
-    public UserDTO selectOneUser(Connection con, int userId) {
+
+    public UserDTO selectOneUser(Connection con, int userCode) {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
@@ -91,13 +93,14 @@ public class UserDAO {
 
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, userId);
+            pstmt.setInt(1, userCode);
 
             rset = pstmt.executeQuery();
 
             if (rset.next()) {
                 oneUser = new UserDTO();
-                oneUser.setUserId(rset.getInt("USER_ID"));
+                oneUser.setUserCode(rset.getInt("USER_CODE"));
+                oneUser.setUserId(rset.getString("USER_ID"));
                 oneUser.setUserName(rset.getString("USER_NAME"));
                 oneUser.setUserPwd(rset.getString("USER_PWD"));
                 oneUser.setAge(rset.getInt("AGE"));
@@ -128,7 +131,7 @@ public class UserDAO {
             pstmt.setString(2, user.getUserPwd());
             pstmt.setString(3, user.getPhone());
             pstmt.setString(4,user.getGender());
-            pstmt.setInt(5, user.getUserId());
+            pstmt.setInt(5, user.getUserCode());
 
             result = pstmt.executeUpdate();
 
@@ -142,7 +145,7 @@ public class UserDAO {
     }
 
 
-    public int deleteUser(Connection con, int userId) {
+    public int deleteUser(Connection con, int userCode) {
 
         PreparedStatement pstmt = null;
 
@@ -152,7 +155,7 @@ public class UserDAO {
 
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, userId);
+            pstmt.setInt(1, userCode);
 
             result = pstmt.executeUpdate();
 

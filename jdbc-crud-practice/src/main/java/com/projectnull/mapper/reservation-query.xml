@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="selectAllResvList">
+        SELECT
+               RESERVATION_CODE,
+               USER_CODE,
+               SHOW_CODE,
+               SEAT_CODE
+          FROM RESERVATION
+    </entry>
+    <entry key="insertReservation">
+        INSERT INTO RESERVATION
+        (
+            USER_CODE,
+            SHOW_CODE,
+            SEAT_CODE
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?
+        )
+
+    </entry>
+    <entry key="selectOneReservation">
+        SELECT
+               RESERVATION_CODE,
+               USER_CODE,
+               SHOW_CODE,
+               SEAT_CODE
+
+          FROM RESERVATION
+         WHERE RESERVATION_CODE = ?
+
+    </entry>
+    <entry key="updateReservation">
+        UPDATE RESERVATION
+           SET
+               SHOW_CODE = ?,
+               SEAT_CODE = ?
+         WHERE RESERVATION_CODE = ?
+    </entry>
+    <entry key="deleteReservation">
+        DELETE
+          FROM RESERVATION
+         WHERE RESERVATION_CODE = ?
+    </entry>
+
+</properties>
