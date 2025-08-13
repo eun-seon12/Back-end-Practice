@@ -50,10 +50,10 @@ public class ReservationDTO {
 
     @Override
     public String toString() {
-        return "예매내역 : " +
-                "예매코드 = " + reservationCode +
-                ", 회원코드 = " + userCode +
-                ", 공연코드 = " + showCode +
-                ", 좌석코드 = " + seatCode;
+        return
+                "예매코드 '" + reservationCode + "'" +
+                " => 회원코드 : " + userCode +
+                ", 공연코드 : " + showCode +
+                ", 좌석코드 : " + seatCode;
     }
 }

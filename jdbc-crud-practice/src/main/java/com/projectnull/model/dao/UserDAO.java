@@ -21,6 +21,40 @@ public class UserDAO {
         }
     }
 
+
+    public List<Map<String, String>> selectAllUser(Connection con) {
+
+        Statement stmt = null;
+        ResultSet rset = null;
+
+        List<Map<String, String>> userList = new ArrayList<>();
+
+        String query = prop.getProperty("selectAllUserList");
+
+        try {
+            stmt = con.createStatement();
+            rset = stmt.executeQuery(query);
+
+
+            while (rset.next()){
+                Map<String, String> user = new HashMap<>();
+
+                user.put("userCode", String.valueOf(rset.getInt("USER_CODE")));
+                user.put("userId", rset.getString("USER_ID"));
+                user.put("userName", rset.getString("USER_NAME"));
+
+                userList.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(rset);
+            close(stmt);
+        }
+        return userList;
+    }
+
     public int insertUser(Connection con, UserDTO user) {
 
         PreparedStatement pstmt = null;
@@ -44,41 +78,6 @@ public class UserDAO {
             close(pstmt);
         }
         return result;
-    }
-
-
-    public List<Map<String, String>> selectAllUser(Connection con) {
-
-        Statement stmt = null;
-        ResultSet rset = null;
-
-        List<Map<String, String>> userList = null;
-
-        String query = prop.getProperty("selectAllUserList");
-
-        try {
-            stmt = con.createStatement();
-            rset = stmt.executeQuery(query);
-
-            userList = new ArrayList<>();
-
-            while (rset.next()){
-                Map<String, String> user = new HashMap<>();
-                user.put("user Code ", String.valueOf(rset.getInt("USER_CODE")));
-                user.put("user Id ", rset.getString("USER_ID"));
-                user.put("user Name ", rset.getString("USER_NAME"));
-
-
-                userList.add(user);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(rset);
-            close(stmt);
-        }
-        return userList;
     }
 
 

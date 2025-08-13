@@ -3,11 +3,14 @@
 <properties>
     <entry key="selectAllResvList">
         SELECT
-               RESERVATION_CODE,
-               USER_CODE,
-               SHOW_CODE,
-               SEAT_CODE
-          FROM RESERVATION
+               R.RESERVATION_CODE,
+               U.USER_CODE,
+               W.SHOW_CODE,
+               S.SEAT_CODE
+          FROM RESERVATION R
+          JOIN `USER` U ON R.USER_CODE = U.USER_CODE
+          JOIN `SHOW` W ON R.SHOW_CODE = W.SHOW_CODE
+          JOIN SEAT S ON R.SEAT_CODE = S.SEAT_CODE
     </entry>
     <entry key="insertReservation">
         INSERT INTO RESERVATION
@@ -26,13 +29,16 @@
     </entry>
     <entry key="selectOneReservation">
         SELECT
-               RESERVATION_CODE,
-               USER_CODE,
-               SHOW_CODE,
-               SEAT_CODE
+               R.RESERVATION_CODE,
+               U.USER_CODE,
+               W.SHOW_CODE,
+               S.SEAT_CODE
 
-          FROM RESERVATION
-         WHERE RESERVATION_CODE = ?
+          FROM RESERVATION R
+          JOIN `USER` U ON R.USER_CODE = U.USER_CODE
+          JOIN `SHOW` W ON R.SHOW_CODE = W.SHOW_CODE
+          JOIN SEAT S ON R.SEAT_CODE = S.SEAT_CODE
+         WHERE R.RESERVATION_CODE = ?
 
     </entry>
     <entry key="updateReservation">

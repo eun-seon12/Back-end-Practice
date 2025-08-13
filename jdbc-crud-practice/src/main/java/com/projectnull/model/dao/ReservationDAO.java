@@ -42,12 +42,6 @@ public class ReservationDAO {
                 reservation.put("show_code", rset.getInt("show_code"));
                 reservation.put("seat_code", rset.getInt("seat_code"));
 
-                System.out.printf("%-16d %-10d %-10d %-10d%n",
-                reservation.get("reservation_code"),
-                reservation.get("user_code"),
-                reservation.get("show_code"),
-                reservation.get("seat_code"));
-
                 reservationList.add(reservation);
             }
         } catch (SQLException e) {

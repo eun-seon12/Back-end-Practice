@@ -75,13 +75,13 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return " 회원 코드 = " + userCode +
-                ", 아이디 = '" + userId + '\'' +
-                ", 이름 = '" + userName + '\'' +
-                ", 비밀번호 = '" + userPwd + '\'' +
+        return "회원 코드 '" + userCode + "'" +
+                " => 아이디 = " + userId +
+                ", 이름 = " + userName +
+                ", 비밀번호 = " + userPwd +
                 ", 나이 = " + age +
-                ", 전화번호 = '" + phone + '\'' +
-                ", 성별 = '" + gender + '\''
+                ", 전화번호 = " + phone +
+                ", 성별 = " + gender
                 ;
     }
 }
